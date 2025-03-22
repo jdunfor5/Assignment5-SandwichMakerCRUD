@@ -1,6 +1,6 @@
 class conf:
     host = "localhost"
     database = "sandwich_maker_api"
-    port = 3000
+    port = 3046
     user = "root"
-    password = "NHDjd4dMYSQL!"
+    password = "rootroot"
