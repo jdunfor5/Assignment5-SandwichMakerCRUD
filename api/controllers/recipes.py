@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from fastapi import Response, status
+from fastapi import status, Response
 from ..models import models, schemas
 
 def create(db: Session, recipe):
@@ -16,17 +16,17 @@ def create(db: Session, recipe):
 def read_all(db: Session):
     return db.query(models.Recipe).all()
 
-def read_one(db: Session, recipe_id):
+def read_one(db: Session, recipe_id: int):
     return db.query(models.Recipe).filter(models.Recipe.id == recipe_id).first()
 
-def update(db: Session, recipe_id, recipe):
+def update(db: Session, recipe_id: int, recipe):
     db_recipe = db.query(models.Recipe).filter(models.Recipe.id == recipe_id)
     update_data = recipe.model_dump(exclude_unset=True)
     db_recipe.update(update_data, synchronize_session=False)
     db.commit()
     return db_recipe.first()
 
-def delete(db: Session, recipe_id):
+def delete(db: Session, recipe_id: int):
     db_recipe = db.query(models.Recipe).filter(models.Recipe.id == recipe_id)
     db_recipe.delete(synchronize_session=False)
     db.commit()
